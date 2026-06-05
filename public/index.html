@@ -1,65 +1,1082 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light" data-direction="soft">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nitish | Portfolio</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Tailwind Configuration -->
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Outfit', 'sans-serif'],
-            }
-          }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nitish Srivastava — Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- ============================================================
+         ALL STYLES (edit colors, spacing, fonts here)
+         ============================================================ -->
+    <style>
+        /* ============================================================
+           Nitish Srivastava — Project Showcase
+           Token system: [data-theme] (light/dark) x [data-direction]
+           (editorial / technical / soft)
+           ============================================================ */
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            transition: background .35s ease, color .35s ease;
         }
-      }
-    </script>
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+        button { font-family: inherit; cursor: pointer; }
+        a { color: inherit; text-decoration: none; }
+        ::selection { background: var(--accent-soft); }
+
+        /* -------- THEME TOKENS -------- */
+        [data-theme="light"] {
+            --bg: #fbfbfa;
+            --surface: #ffffff;
+            --surface-2: #f5f5f3;
+            --text: #1a1a18;
+            --text-2: #45453f;
+            --muted: #76766f;
+            --faint: #9a9a92;
+            --border: #e7e7e2;
+            --border-strong: #d8d8d2;
+            --accent: #2a6fdb;
+            --accent-ink: #1f57b0;
+            --accent-soft: rgba(42,111,219,.09);
+            --shadow: 0 1px 2px rgba(20,20,18,.04), 0 8px 28px rgba(20,20,18,.06);
+            --shadow-hover: 0 2px 6px rgba(20,20,18,.06), 0 18px 48px rgba(20,20,18,.12);
+            --grid-line: rgba(20,20,18,.035);
+        }
+        [data-theme="dark"] {
+            --bg: #0e0e10;
+            --surface: #161618;
+            --surface-2: #1d1d20;
+            --text: #ededec;
+            --text-2: #c4c4c0;
+            --muted: #9a9a94;
+            --faint: #6e6e68;
+            --border: #29292c;
+            --border-strong: #37373b;
+            --accent: #6ba2ff;
+            --accent-ink: #98bcff;
+            --accent-soft: rgba(107,162,255,.14);
+            --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.45);
+            --shadow-hover: 0 2px 8px rgba(0,0,0,.5), 0 22px 56px rgba(0,0,0,.6);
+            --grid-line: rgba(255,255,255,.035);
+        }
+
+        /* -------- DIRECTION TOKENS -------- */
+        [data-direction="editorial"] {
+            --font-head: "Newsreader", Georgia, serif;
+            --font-body: "Hanken Grotesk", system-ui, sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
+            --radius: 3px;
+            --radius-lg: 4px;
+        }
+        [data-direction="technical"] {
+            --font-head: "Space Grotesk", system-ui, sans-serif;
+            --font-body: "Hanken Grotesk", system-ui, sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
+            --radius: 2px;
+            --radius-lg: 2px;
+        }
+        [data-direction="soft"] {
+            --font-head: "Schibsted Grotesk", system-ui, sans-serif;
+            --font-body: "Schibsted Grotesk", system-ui, sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+
+        /* ============================================================
+           LAYOUT SHELL
+           ============================================================ */
+        .app { min-height: 100vh; }
+        .wrap { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+
+        /* -------- Top bar -------- */
+        .topbar {
+            position: sticky; top: 0; z-index: 50;
+            background: color-mix(in srgb, var(--bg) 86%, transparent);
+            backdrop-filter: saturate(1.4) blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+        .topbar__inner {
+            max-width: 1140px; margin: 0 auto; padding: 14px 32px;
+            display: flex; align-items: center; gap: 18px;
+        }
+        .brand { display: flex; align-items: baseline; gap: 10px; font-family: var(--font-head); flex: none; white-space: nowrap; }
+        .brand__name { font-weight: 600; font-size: 17px; letter-spacing: -.01em; }
+        .brand__tag {
+            font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+            letter-spacing: .02em;
+        }
+        .topbar__spacer { flex: 1; }
+
+        /* Segmented control (direction + theme) */
+        .seg {
+            display: inline-flex; align-items: center;
+            background: var(--surface-2); border: 1px solid var(--border);
+            border-radius: 999px; padding: 3px;
+        }
+        .seg button {
+            border: 0; background: transparent; color: var(--muted);
+            font-size: 12.5px; font-weight: 500; padding: 6px 13px;
+            border-radius: 999px; letter-spacing: .01em; line-height: 1;
+            transition: color .2s, background .2s;
+        }
+        .seg button:hover { color: var(--text-2); }
+        .seg button[aria-pressed="true"] {
+            background: var(--surface); color: var(--text);
+            box-shadow: var(--shadow);
+        }
+        [data-theme="dark"] .seg button[aria-pressed="true"] { background: var(--border-strong); }
+
+        .icon-btn {
+            display: inline-grid; place-items: center;
+            width: 38px; height: 38px; border-radius: 999px;
+            background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2);
+            transition: color .2s, border-color .2s, transform .2s;
+        }
+        .icon-btn:hover { color: var(--text); border-color: var(--border-strong); }
+        .icon-btn:active { transform: scale(.94); }
+        .icon-btn svg { width: 17px; height: 17px; }
+
+        /* ============================================================
+           LIST SCREEN
+           ============================================================ */
+        .hero { padding: 64px 0 36px; }
+        .hero__eyebrow {
+            font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--accent); margin: 0 0 18px;
+        }
+        .hero__title {
+            font-family: var(--font-head); margin: 0 0 16px;
+            font-size: clamp(34px, 5.4vw, 60px); line-height: 1.04;
+            letter-spacing: -.025em; max-width: 16ch;
+        }
+        [data-direction="editorial"] .hero__title { font-weight: 500; }
+        [data-direction="technical"] .hero__title { font-weight: 600; letter-spacing: -.03em; }
+        [data-direction="soft"] .hero__title { font-weight: 700; }
+        .hero__lede {
+            font-size: clamp(16px, 1.6vw, 19px); color: var(--muted);
+            max-width: 56ch; line-height: 1.6; margin: 0;
+        }
+
+        /* search + count row */
+        .controls {
+            display: flex; align-items: center; gap: 16px;
+            padding: 8px 0 26px; flex-wrap: wrap;
+        }
+        .search {
+            flex: 1; min-width: 240px; position: relative;
+            display: flex; align-items: center;
+        }
+        .search svg {
+            position: absolute; left: 16px; width: 17px; height: 17px;
+            color: var(--faint); pointer-events: none;
+        }
+        .search input {
+            width: 100%; font-family: inherit; font-size: 15px; color: var(--text);
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 13px 16px 13px 44px;
+            outline: none; transition: border-color .2s, box-shadow .2s;
+        }
+        .search input::placeholder { color: var(--faint); }
+        .search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .count {
+            font-family: var(--font-mono); font-size: 12.5px; color: var(--muted);
+            white-space: nowrap; letter-spacing: .02em;
+        }
+
+        /* -------- GRID (per-direction columns) -------- */
+        .grid { display: grid; gap: 18px; padding-bottom: 80px; }
+        [data-direction="editorial"] .grid {
+            grid-template-columns: repeat(2, 1fr); gap: 0;
+            border-top: 1px solid var(--border);
+        }
+        [data-direction="technical"] .grid {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0;
+            border: 1px solid var(--border);
+        }
+        [data-direction="soft"] .grid {
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 22px;
+        }
+        @media (max-width: 720px) {
+            [data-direction="editorial"] .grid,
+            [data-direction="technical"] .grid { grid-template-columns: 1fr; }
+        }
+
+        /* ============================================================
+           CARD — base
+           ============================================================ */
+        .card {
+            position: relative; text-align: left; width: 100%;
+            background: var(--surface); border: 0; color: inherit;
+            display: flex; flex-direction: column; gap: 16px;
+            transition: background .25s, transform .25s, box-shadow .25s, border-color .25s;
+        }
+        .card__top { display: flex; align-items: flex-start; gap: 14px; }
+        .card__logo {
+            flex: none; display: grid; place-items: center;
+            font-family: var(--font-head); font-weight: 600;
+            width: 46px; height: 46px; font-size: 19px; letter-spacing: -.02em;
+        }
+        .card__heads { flex: 1; min-width: 0; }
+        .card__name {
+            font-family: var(--font-head); margin: 0; line-height: 1.1;
+            letter-spacing: -.02em;
+        }
+        .card__short {
+            margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.55;
+        }
+        .card__stack { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+        .card__foot { display: flex; align-items: center; gap: 14px; }
+        .card__foot .card__stack { flex: 1; min-width: 0; }
+        .card__arrow {
+            flex: none; color: var(--faint);
+            transition: transform .25s, color .25s, opacity .25s;
+        }
+        .card__arrow svg { width: 18px; height: 18px; display: block; }
+
+        /* status badge base */
+        .status {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em;
+            text-transform: uppercase; white-space: nowrap;
+        }
+        .status::before {
+            content: ""; width: 6px; height: 6px; border-radius: 999px;
+            background: currentColor;
+        }
+        .status--live { color: #1f9d5c; }
+        .status--wip { color: #c98a1e; }
+        .status--archived { color: var(--faint); }
+        [data-theme="dark"] .status--live { color: #4cce8b; }
+        [data-theme="dark"] .status--wip { color: #e6b357; }
+
+        /* tech chip base */
+        .chip {
+            font-size: 12px; line-height: 1; white-space: nowrap;
+            color: var(--text-2);
+        }
+
+        /* ============================================================
+           CARD — EDITORIAL  (journal index)
+           ============================================================ */
+        [data-direction="editorial"] .card {
+            padding: 30px 30px 32px; gap: 14px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+        [data-direction="editorial"] .grid > .card:nth-child(2n) { border-right: 0; }
+        @media (max-width: 720px){ [data-direction="editorial"] .card { border-right: 0; } }
+        [data-direction="editorial"] .card:hover { background: var(--surface-2); }
+        [data-direction="editorial"] .card__logo {
+            width: 40px; height: 40px; border: 1px solid var(--border-strong);
+            border-radius: var(--radius); background: transparent; font-size: 17px;
+        }
+        [data-direction="editorial"] .card__name { font-size: 25px; font-weight: 500; }
+        [data-direction="editorial"] .card__short { font-size: 15.5px; }
+        [data-direction="editorial"] .chip {
+            font-family: var(--font-mono); font-size: 11.5px; color: var(--muted);
+        }
+        [data-direction="editorial"] .card__stack { gap: 4px 10px; }
+        [data-direction="editorial"] .chip:not(:last-child)::after { content: " /"; color: var(--faint); margin-left: 8px; }
+        [data-direction="editorial"] .card:hover .card__arrow { transform: translateX(3px); color: var(--accent); }
+
+        /* ============================================================
+           CARD — TECHNICAL  (hairline grid + mono labels)
+           ============================================================ */
+        [data-direction="technical"] .card {
+            padding: 22px 22px 24px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 100% 26px;
+            background-color: var(--surface);
+        }
+        [data-direction="technical"] .card::before {
+            content: "No. " attr(data-index);
+            font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em;
+            text-transform: uppercase; color: var(--faint);
+            display: block; margin-bottom: 14px;
+        }
+        [data-direction="technical"] .card:hover { background-color: var(--surface-2); }
+        [data-direction="technical"] .card__logo {
+            width: 40px; height: 40px; font-family: var(--font-mono); font-weight: 700;
+            border: 1px solid var(--border-strong); border-radius: 0; font-size: 15px;
+            color: var(--accent);
+        }
+        [data-direction="technical"] .card__name { font-size: 21px; font-weight: 600; }
+        [data-direction="technical"] .chip {
+            font-family: var(--font-mono); font-size: 11px; color: var(--text-2);
+            border: 1px solid var(--border); padding: 3px 7px; border-radius: 2px;
+        }
+        [data-direction="technical"] .chip::before { content: ""; }
+        [data-direction="technical"] .card:hover .card__arrow { transform: translateX(3px); color: var(--accent); }
+
+        /* ============================================================
+           CARD — SOFT  (rounded, shadow, tinted logo)
+           ============================================================ */
+        [data-direction="soft"] .card {
+            padding: 24px; border-radius: var(--radius-lg);
+            border: 1px solid var(--border); box-shadow: var(--shadow);
+        }
+        [data-direction="soft"] .card:hover {
+            transform: translateY(-4px); box-shadow: var(--shadow-hover);
+            border-color: var(--border-strong);
+        }
+        [data-direction="soft"] .card__logo {
+            width: 48px; height: 48px; border-radius: 14px; font-size: 20px;
+            background: var(--logo-bg); color: var(--logo-fg);
+        }
+        [data-direction="soft"] .card__name { font-size: 20px; font-weight: 700; }
+        [data-direction="soft"] .chip {
+            background: var(--surface-2); border: 1px solid var(--border);
+            padding: 5px 10px; border-radius: 999px; font-size: 11.5px;
+            font-weight: 500;
+        }
+        [data-direction="soft"] .card:hover .card__arrow { transform: translateX(3px); color: var(--accent); }
+
+        /* +N more chip */
+        .chip--more { color: var(--faint); }
+        [data-direction="soft"] .chip--more { background: transparent; border-style: dashed; }
+
+        /* ============================================================
+           DETAIL SCREEN
+           ============================================================ */
+        .detail { padding-bottom: 96px; }
+        .back {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .04em;
+            color: var(--muted); padding: 24px 0; transition: color .2s, gap .2s;
+        }
+        .back:hover { color: var(--text); gap: 11px; }
+        .back svg { width: 15px; height: 15px; }
+
+        .dhead { display: flex; align-items: flex-start; gap: 22px; padding-bottom: 30px; }
+        .dhead__logo {
+            flex: none; display: grid; place-items: center;
+            width: 76px; height: 76px; font-family: var(--font-head); font-weight: 600;
+            font-size: 32px; letter-spacing: -.02em;
+        }
+        [data-direction="editorial"] .dhead__logo { border: 1px solid var(--border-strong); border-radius: var(--radius); }
+        [data-direction="technical"] .dhead__logo { border: 1px solid var(--border-strong); font-family: var(--font-mono); color: var(--accent); }
+        [data-direction="soft"] .dhead__logo { border-radius: 20px; background: var(--logo-bg); color: var(--logo-fg); }
+        .dhead__main { flex: 1; min-width: 0; }
+        .dhead__row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+        .dtitle {
+            font-family: var(--font-head); margin: 0; letter-spacing: -.03em; line-height: 1;
+            font-size: clamp(32px, 4.5vw, 46px);
+        }
+        [data-direction="soft"] .dtitle { font-weight: 700; }
+        .dhead__short { margin: 0; font-size: 18px; color: var(--muted); line-height: 1.55; max-width: 60ch; }
+
+        .dactions { display: flex; gap: 12px; flex-wrap: wrap; padding: 4px 0 40px; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-size: 14px; font-weight: 500; padding: 11px 18px;
+            border-radius: var(--radius-lg); border: 1px solid var(--border-strong);
+            background: var(--surface); color: var(--text);
+            transition: transform .15s, border-color .2s, background .2s;
+        }
+        .btn:hover { border-color: var(--text-2); }
+        .btn:active { transform: scale(.97); }
+        .btn svg { width: 16px; height: 16px; }
+        .btn--primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+        [data-theme="dark"] .btn--primary { color: #0e0e10; }
+        .btn--primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+        .btn .stars { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+
+        /* layout: two columns on wide */
+        .dgrid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; }
+        @media (max-width: 860px){ .dgrid { grid-template-columns: 1fr; gap: 40px; } }
+
+        .section { margin-bottom: 44px; }
+        .section__label {
+            font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--accent); margin: 0 0 16px;
+            padding-bottom: 10px; border-bottom: 1px solid var(--border);
+        }
+        .prose { font-size: 16.5px; line-height: 1.72; color: var(--text-2); margin: 0; }
+        .prose + .prose { margin-top: 16px; }
+
+        .features { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+        .features li {
+            display: flex; gap: 12px; align-items: flex-start;
+            font-size: 15.5px; line-height: 1.55; color: var(--text-2);
+        }
+        .features li::before {
+            content: ""; flex: none; margin-top: 8px;
+            width: 7px; height: 7px; border-radius: 2px;
+            background: var(--accent); transform: rotate(45deg);
+        }
+
+        /* meta side panel */
+        .meta { display: grid; gap: 22px; align-content: start; }
+        .meta__block {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 20px;
+        }
+        [data-direction="technical"] .meta__block { border-radius: 2px; }
+        .meta__h {
+            font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em;
+            text-transform: uppercase; color: var(--muted); margin: 0 0 14px;
+        }
+        .meta__stack { display: flex; flex-wrap: wrap; gap: 8px; }
+        .meta__row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+        .meta__row:last-child { border-bottom: 0; }
+        .meta__row .k { color: var(--muted); }
+        .meta__row .v { color: var(--text); font-family: var(--font-mono); font-size: 12.5px; }
+        .meta__link { display: inline-flex; align-items: center; gap: 7px; color: var(--accent); font-size: 14px; font-weight: 500; }
+        .meta__link svg { width: 14px; height: 14px; }
+        .meta__link:hover { text-decoration: underline; }
+
+        /* screenshots */
+        .shots { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+        @media (max-width: 560px){ .shots { grid-template-columns: 1fr; } }
+        .shot {
+            border: 1px solid var(--border); border-radius: var(--radius-lg);
+            overflow: hidden; aspect-ratio: 16/10; position: relative;
+            display: grid; place-items: center; background: var(--surface-2);
+        }
+        [data-direction="technical"] .shot { border-radius: 2px; }
+        .shot__label {
+            position: absolute; bottom: 10px; left: 12px;
+            font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+            background: color-mix(in srgb, var(--surface) 80%, transparent);
+            padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border);
+        }
+        .shot--wide { grid-column: 1 / -1; aspect-ratio: 16/7; }
+
+        /* empty state */
+        .empty { text-align: center; padding: 80px 0; color: var(--muted); }
+        .empty__big { font-family: var(--font-head); font-size: 24px; color: var(--text-2); margin: 0 0 8px; }
+        .empty p { margin: 0; font-size: 15px; }
+
+        /* fade-in — base state is visible; animation is enhancement only.
+           No fill-mode, so if the engine doesn't tick (hidden tab/print) content stays visible. */
+        @keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+        @media (prefers-reduced-motion: no-preference) {
+            .rise { animation: rise .4s cubic-bezier(.2,.7,.2,1); }
+        }
+
+        /* footer */
+        .foot {
+            border-top: 1px solid var(--border); padding: 28px 0 60px;
+            display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+            font-family: var(--font-mono); font-size: 12px; color: var(--faint);
+        }
+
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans min-h-screen selection:bg-blue-200 antialiased overflow-y-scroll">
-    
-    <!-- App Header -->
-    <header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold tracking-tight text-gray-900 hover:text-blue-600 transition-colors">
-                Portfolio
-            </a>
-            <nav>
-                <a href="https://github.com/nitish-iiitd" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
-                    GitHub
+<body>
+<div id="root"></div>
+
+<!-- React + Babel (loaded from CDN — needs internet) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- ============================================================
+     YOUR PROJECTS — edit this list to add/change projects
+     ============================================================ -->
+<script>
+    // Project data for Nitish Srivastava's showcase.
+    // 4 real projects + 6 realistic placeholders. Swap freely.
+    window.PROJECTS = [
+        {
+            id: "doxie",
+            name: "Doxie",
+            mono: "D",
+            hue: 210,
+            status: "live",
+            short: "Google Drive–backed document management for families.",
+            stack: ["React", "TypeScript", "Node.js", "Google Drive API", "OAuth 2.0", "Tailwind"],
+            link: "https://doxie.app",
+            repo: "nitish/doxie",
+            stars: 184,
+            detail:
+                "Doxie is a personal document manager that keeps every important family record — IDs, insurance, bills, certificates — organized on top of your own Google Drive, so you stay in full control of your data. It introduces shared \u201cDoxie workspaces\u201d where family members access a common Drive folder with viewer or editor permissions, making it effortless to keep everyone on the same page without a separate storage silo.",
+            architecture:
+                "A React + TypeScript front end talks to a thin Node.js service that brokers Google Drive access via OAuth 2.0. Documents never leave the user's Drive — Doxie stores only metadata, tags, and workspace membership in Postgres. Permission changes propagate through Drive's native sharing API, so the source of truth is always the user's own account.",
+            features: [
+                "Shared workspaces with viewer / editor roles backed by Drive permissions",
+                "Smart tagging and full-text search across document metadata",
+                "Expiry reminders for time-sensitive documents (passports, policies)",
+                "Zero-storage model — your files stay in your own Drive"
+            ],
+            shots: ["Workspace dashboard", "Document detail + tags", "Share & permissions"]
+        },
+        {
+            id: "dockyard",
+            name: "Dockyard",
+            mono: "Dk",
+            hue: 270,
+            status: "wip",
+            short: "A lightweight, experimental agentic framework for personal AI.",
+            stack: ["Python", "FastAPI", "LangGraph", "Pydantic", "MCP", "Redis"],
+            link: "https://dockyard.dev",
+            repo: "nitish/dockyard",
+            stars: 412,
+            detail:
+                "Dockyard is personal AI infrastructure: a small, composable framework for building and orchestrating agents. It provides an agent registry, a tool registry, an LLM abstraction layer, request routing, agent-to-agent handoff, native MCP integration, and clean APIs to power your own AI tools — without the weight of a full platform.",
+            architecture:
+                "At the core is a router that resolves an incoming task to one or more registered agents. Agents declare their tools and capabilities in a registry; an LLM abstraction layer lets you swap providers without touching agent code. Handoff is modeled as a typed message passed between agents, and MCP servers are mounted as first-class tool sources. FastAPI exposes everything over HTTP; Redis handles transient state and queues.",
+            features: [
+                "Pluggable agent & tool registries with typed schemas",
+                "Provider-agnostic LLM abstraction (swap models in one line)",
+                "Agent-to-agent handoff with structured message passing",
+                "Native Model Context Protocol (MCP) integration"
+            ],
+            shots: ["Agent registry view", "Routing trace", "MCP tool catalog"]
+        },
+        {
+            id: "shelftrack",
+            name: "ShelfTrack",
+            mono: "S",
+            hue: 150,
+            status: "live",
+            short: "A mobile-first inventory tracker for everyday products.",
+            stack: ["Flutter", "Dart", "SQLite", "Riverpod"],
+            link: "https://shelftrack.app",
+            repo: "nitish/shelftrack",
+            stars: 96,
+            detail:
+                "ShelfTrack helps you keep tabs on the everyday things you run out of — makeup, household supplies, pantry consumables. Organize products by category and sub-category, flag items as in-use or finished, and see finished-vs-total counts at a glance so you always know what to restock before you run dry.",
+            architecture:
+                "A Flutter app with a local-first SQLite store, so it works fully offline. State is managed with Riverpod, keeping the UI reactive to inventory changes. Categories and sub-categories form a simple tree; status transitions (in_use \u2192 finished) are append-only events, which makes the finished/total analytics cheap to compute.",
+            features: [
+                "Category & sub-category organization with quick filters",
+                "in_use vs finished status tracking per product",
+                "Finished / total counts and restock insights",
+                "Fully offline, local-first storage"
+            ],
+            shots: ["Category grid", "Product detail", "Restock summary"]
+        },
+        {
+            id: "list-me-out",
+            name: "List-Me-Out",
+            mono: "L",
+            hue: 35,
+            status: "live",
+            short: "A minimal, paper-like todo app for quick daily productivity.",
+            stack: ["React", "Vite", "LocalStorage", "CSS"],
+            link: "https://listmeout.app",
+            repo: "nitish/list-me-out",
+            stars: 58,
+            detail:
+                "List-Me-Out is a deliberately tiny todo app for lightweight daily use. No accounts, no sync, no clutter — just a clean, paper-like surface where active and completed items live in separate, calm sections. Everything persists in local storage so your list is right where you left it.",
+            architecture:
+                "A single-page React app built with Vite. There is no backend at all — state lives in React and is mirrored to LocalStorage on every change, then rehydrated on load. The UI leans on a paper metaphor with subtle texture and generous spacing to keep the experience focused and quiet.",
+            features: [
+                "Active and completed items in distinct sections",
+                "Instant local persistence — no account required",
+                "Calm, paper-like interface with zero chrome",
+                "Keyboard-first quick entry"
+            ],
+            shots: ["Active list", "Completed view"]
+        },
+        {
+            id: "pulse",
+            name: "Pulse",
+            mono: "P",
+            hue: 0,
+            status: "live",
+            short: "A self-hosted uptime & status-page monitor.",
+            stack: ["Go", "Postgres", "WebSockets", "Docker"],
+            link: "https://pulse.run",
+            repo: "nitish/pulse",
+            stars: 327,
+            detail:
+                "Pulse is a self-hosted monitor that pings your services on a schedule, records latency and incidents, and renders a clean public status page. It pushes live state to dashboards over WebSockets and ships as a single Docker container for painless deployment.",
+            architecture:
+                "A Go service runs a scheduler that executes HTTP/TCP checks against configured targets, writing results to Postgres. A WebSocket hub broadcasts state changes to connected dashboards and status pages in real time. The whole thing is packaged as one Docker image with an embedded migrations runner.",
+            features: [
+                "HTTP/TCP/ping checks with configurable intervals",
+                "Live incident timeline and latency history",
+                "Public, brandable status page",
+                "Single-container deploy"
+            ],
+            shots: ["Monitors dashboard", "Incident timeline", "Public status page"]
+        },
+        {
+            id: "quill",
+            name: "Quill",
+            mono: "Q",
+            hue: 195,
+            status: "wip",
+            short: "Markdown notes with real-time sync across devices.",
+            stack: ["Next.js", "tRPC", "Prisma", "Postgres", "Yjs"],
+            link: "https://quill.notes",
+            repo: "nitish/quill",
+            stars: 241,
+            detail:
+                "Quill is a fast Markdown notebook with conflict-free real-time sync. Write in plain Markdown, organize with nested notebooks, and edit the same note on two devices at once — changes merge cleanly thanks to CRDTs.",
+            architecture:
+                "A Next.js app with a tRPC API and Prisma over Postgres for persistence. Real-time collaboration is powered by Yjs CRDT documents synced through a lightweight WebSocket provider, so concurrent edits merge without conflicts and offline edits reconcile on reconnect.",
+            features: [
+                "CRDT-based real-time, offline-friendly sync",
+                "Nested notebooks and Markdown-native editing",
+                "Instant full-text search",
+                "Local-first with seamless multi-device merge"
+            ],
+            shots: ["Editor", "Notebook tree", "Sync conflict-free demo"]
+        },
+        {
+            id: "forklift",
+            name: "Forklift",
+            mono: "F",
+            hue: 25,
+            status: "live",
+            short: "A fast CLI for safe, bulk database migrations.",
+            stack: ["Rust", "Clap", "SQLx", "Postgres"],
+            link: "https://forklift.sh",
+            repo: "nitish/forklift",
+            stars: 503,
+            detail:
+                "Forklift is a command-line tool for moving and transforming large datasets between databases with dry-runs, checkpoints, and resumable batches. Built in Rust for throughput, it favors safety: every migration is previewable and recoverable.",
+            architecture:
+                "A Rust binary using Clap for its CLI and SQLx for typed, async database access. Migrations are defined as ordered, idempotent steps; Forklift streams rows in bounded batches, checkpoints progress to a control table, and can resume exactly where it left off after an interruption.",
+            features: [
+                "Resumable, checkpointed batch migrations",
+                "Dry-run previews with row-level diffs",
+                "Async streaming for high throughput",
+                "Typed queries via SQLx"
+            ],
+            shots: ["Dry-run output", "Live migration progress"]
+        },
+        {
+            id: "habinit",
+            name: "Habinit",
+            mono: "H",
+            hue: 320,
+            status: "wip",
+            short: "An offline-first habit tracker as an installable PWA.",
+            stack: ["SvelteKit", "IndexedDB", "Service Workers"],
+            link: "https://habinit.app",
+            repo: "nitish/habinit",
+            stars: 132,
+            detail:
+                "Habinit is a calm habit tracker that installs to your home screen and works entirely offline. Build streaks, log daily, and visualize consistency with a year-in-pixels grid — all stored locally on your device.",
+            architecture:
+                "A SvelteKit PWA with a service worker for offline support and IndexedDB for local persistence. There is no server: all habit data and streak computation happen on-device, and the app is installable on mobile and desktop.",
+            features: [
+                "Installable PWA, fully offline",
+                "Streaks and year-in-pixels heatmap",
+                "Local-only data — private by default",
+                "Daily reminder notifications"
+            ],
+            shots: ["Today view", "Year-in-pixels heatmap"]
+        },
+        {
+            id: "snippet-vault",
+            name: "Snippet Vault",
+            mono: "Sv",
+            hue: 250,
+            status: "archived",
+            short: "A desktop code-snippet manager with fuzzy search.",
+            stack: ["Electron", "React", "SQLite", "Fuse.js"],
+            link: "https://snippetvault.dev",
+            repo: "nitish/snippet-vault",
+            stars: 74,
+            detail:
+                "Snippet Vault is a desktop app for stashing and instantly finding the bits of code you reuse. Tag snippets, search them fuzzily, and copy with one keystroke. Archived in favor of an editor extension, but still a handy standalone.",
+            architecture:
+                "An Electron shell wrapping a React UI, with snippets stored in a local SQLite database. Fuse.js powers fuzzy search across titles, tags, and bodies, and a global hotkey opens a quick-find palette from anywhere.",
+            features: [
+                "Fuzzy search across titles, tags, and code",
+                "Global hotkey quick-find palette",
+                "Syntax highlighting for 30+ languages",
+                "One-keystroke copy"
+            ],
+            shots: ["Quick-find palette", "Snippet editor"]
+        },
+        {
+            id: "roamly",
+            name: "Roamly",
+            mono: "R",
+            hue: 175,
+            status: "wip",
+            short: "A collaborative travel-itinerary planner with maps.",
+            stack: ["React Native", "Expo", "Mapbox", "Supabase"],
+            link: "https://roamly.travel",
+            repo: "nitish/roamly",
+            stars: 159,
+            detail:
+                "Roamly turns scattered travel ideas into a day-by-day itinerary you can plan with friends. Drop pins on a map, group stops by day, and see everything sync live across everyone on the trip.",
+            architecture:
+                "A React Native (Expo) app backed by Supabase for auth, data, and real-time sync. Mapbox renders interactive maps and routes; itinerary days and stops live in Postgres with row-level security, and live presence keeps collaborators in sync.",
+            features: [
+                "Map-first planning with draggable day groups",
+                "Real-time collaboration across travelers",
+                "Offline access to saved itineraries",
+                "Route & travel-time estimates"
+            ],
+            shots: ["Map planner", "Day-by-day itinerary", "Trip collaborators"]
+        }
+    ];
+
+</script>
+
+<!-- ============================================================
+     UI PIECES (icons, badges, chips, screenshot placeholders)
+     ============================================================ -->
+<script type="text/babel">
+    /* Shared UI: icons, logo, status, chips, screenshot placeholders */
+    const { useState, useEffect, useMemo, useRef } = React;
+
+    /* ---------- Icons (simple line marks) ---------- */
+    const Icon = {
+        search: (p) => (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" {...p}>
+                <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
+            </svg>
+        ),
+        sun: (p) => (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" {...p}>
+                <circle cx="12" cy="12" r="4.2" />
+                <path d="M12 2.5v2.6M12 18.9v2.6M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8" />
+            </svg>
+        ),
+        moon: (p) => (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+                <path d="M20 14.5A8.2 8.2 0 0 1 9.5 4a8.2 8.2 0 1 0 10.5 10.5z" />
+            </svg>
+        ),
+        arrow: (p) => (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+                <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+        ),
+        arrowLeft: (p) => (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+                <path d="M19 12H5M11 6l-6 6 6 6" />
+            </svg>
+        ),
+        external: (p) => (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+                <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+            </svg>
+        ),
+        repo: (p) => (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+                <path d="M6 3h11a2 2 0 0 1 2 2v15.5a.5.5 0 0 1-.74.44L6 17H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+                <path d="M6 17h13" /><path d="M8 7h7" />
+            </svg>
+        ),
+        star: (p) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" {...p}>
+                <path d="M12 3.2l2.5 5.4 5.9.6-4.4 4 1.3 5.8L12 21.9 6.7 19l1.3-5.8-4.4-4 5.9-.6z" />
+            </svg>
+        ),
+    };
+
+    /* ---------- soft-direction tinted logo helpers ---------- */
+    function logoVars(hue, theme) {
+        if (theme === "dark") {
+            return { "--logo-bg": `oklch(0.32 0.07 ${hue})`, "--logo-fg": `oklch(0.9 0.06 ${hue})` };
+        }
+        return { "--logo-bg": `oklch(0.93 0.045 ${hue})`, "--logo-fg": `oklch(0.42 0.11 ${hue})` };
+    }
+
+    /* ---------- Status badge ---------- */
+    const STATUS_LABEL = { live: "Live", wip: "WIP", archived: "Archived" };
+    function Status({ s }) {
+        return <span className={`status status--${s}`}>{STATUS_LABEL[s]}</span>;
+    }
+
+    /* ---------- Tech chips (with +N more) ---------- */
+    function Chips({ stack, max }) {
+        const shown = max ? stack.slice(0, max) : stack;
+        const extra = max ? stack.length - shown.length : 0;
+        return (
+            <ul className="card__stack">
+                {shown.map((t) => <li key={t} className="chip">{t}</li>)}
+                {extra > 0 && <li className="chip chip--more">+{extra}</li>}
+            </ul>
+        );
+    }
+
+    /* ---------- Screenshot placeholder (striped SVG) ---------- */
+    function Shot({ label, hue, theme, wide }) {
+        const stroke = theme === "dark" ? "rgba(255,255,255,.05)" : "rgba(20,20,18,.045)";
+        const id = "s" + Math.abs(hashStr(label));
+        return (
+            <div className={"shot" + (wide ? " shot--wide" : "")}>
+                <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <defs>
+                        <pattern id={id} width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                            <line x1="0" y1="0" x2="0" y2="14" stroke={stroke} strokeWidth="9" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill={`var(--surface-2)`} />
+                    <rect width="100%" height="100%" fill={`url(#${id})`} />
+                </svg>
+                <span className="shot__label">{label}</span>
+            </div>
+        );
+    }
+
+    function hashStr(s) {
+        let h = 0;
+        for (let i = 0; i < s.length; i++) h = (h << 5) - h + s.charCodeAt(i);
+        return h;
+    }
+
+    Object.assign(window, { Icon, Status, Chips, Shot, logoVars, STATUS_LABEL });
+
+</script>
+
+<!-- ============================================================
+     APP (the two screens + search + theme toggle)
+     ============================================================ -->
+<script type="text/babel">
+    /* App: list + detail screens, routing, search, light/dark toggle */
+
+    function useStored(key, fallback) {
+        const [v, setV] = useState(() => {
+            try { return localStorage.getItem(key) || fallback; } catch { return fallback; }
+        });
+        useEffect(() => { try { localStorage.setItem(key, v); } catch {} }, [key, v]);
+        return [v, setV];
+    }
+
+    /* read project id from hash like #/p/doxie */
+    function readRoute() {
+        const m = (location.hash || "").match(/^#\/p\/(.+)$/);
+        return m ? decodeURIComponent(m[1]) : null;
+    }
+
+    function App() {
+        const projects = window.PROJECTS;
+        const [theme, setTheme] = useStored("ns_theme", "light");
+        const [route, setRoute] = useState(readRoute());
+        const [query, setQuery] = useState("");
+
+        useEffect(() => {
+            document.documentElement.setAttribute("data-theme", theme);
+        }, [theme]);
+
+        useEffect(() => {
+            const onHash = () => { setRoute(readRoute()); window.scrollTo(0, 0); };
+            window.addEventListener("hashchange", onHash);
+            return () => window.removeEventListener("hashchange", onHash);
+        }, []);
+
+        const goto = (id) => { location.hash = id ? `#/p/${id}` : ""; };
+        const active = route ? projects.find((p) => p.id === route) : null;
+
+        return (
+            <div className="app">
+                <TopBar theme={theme} setTheme={setTheme} />
+                {active
+                    ? <Detail key={active.id} p={active} theme={theme} onBack={() => goto(null)} />
+                    : <List projects={projects} theme={theme} query={query} setQuery={setQuery} onOpen={goto} />}
+                <footer className="foot wrap">
+                    <span>© 2026 Nitish Srivastava</span>
+                    <span>Built for the things I make on the side.</span>
+                </footer>
+            </div>
+        );
+    }
+
+    /* ---------------- Top bar ---------------- */
+    function TopBar({ theme, setTheme }) {
+        return (
+            <header className="topbar">
+                <div className="topbar__inner">
+                    <a className="brand" href="#" onClick={(e) => { e.preventDefault(); location.hash = ""; }}>
+                        <span className="brand__name">Nitish Srivastava</span>
+                        <span className="brand__tag">/ projects</span>
+                    </a>
+                    <div className="topbar__spacer" />
+                    <button className="icon-btn" aria-label="Toggle theme"
+                            onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+                        {theme === "light" ? <Icon.moon /> : <Icon.sun />}
+                    </button>
+                </div>
+            </header>
+        );
+    }
+
+    /* ---------------- List screen ---------------- */
+    function List({ projects, theme, query, setQuery, onOpen }) {
+        const filtered = useMemo(() => {
+            const q = query.trim().toLowerCase();
+            if (!q) return projects;
+            return projects.filter((p) =>
+                (p.name + " " + p.short + " " + p.stack.join(" ")).toLowerCase().includes(q)
+            );
+        }, [projects, query]);
+
+        return (
+            <main>
+                <section className="hero wrap">
+                    <p className="hero__eyebrow">Selected work · {projects.length} projects</p>
+                    <h1 className="hero__title">Things I build for myself, in the open.</h1>
+                    <p className="hero__lede">
+                        A running index of personal projects — small tools, experiments, and
+                        infrastructure I maintain on the side. Search by name or stack, and open
+                        any one for the full story.
+                    </p>
+                </section>
+
+                <div className="wrap">
+                    <div className="controls">
+                        <label className="search">
+                            <Icon.search />
+                            <input
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="Search projects, tech stack…"
+                                aria-label="Search projects"
+                            />
+                        </label>
+                        <span className="count">
+            {filtered.length.toString().padStart(2, "0")} / {projects.length.toString().padStart(2, "0")}
+          </span>
+                    </div>
+                </div>
+
+                <div className="wrap">
+                    {filtered.length === 0 ? (
+                        <div className="empty">
+                            <p className="empty__big">Nothing matches “{query}”.</p>
+                            <p>Try a project name or a technology like “React” or “Rust”.</p>
+                        </div>
+                    ) : (
+                        <div className="grid">
+                            {filtered.map((p, i) => (
+                                <Card key={p.id} p={p} i={i} theme={theme} onOpen={onOpen} />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </main>
+        );
+    }
+
+    function Card({ p, i, theme, onOpen }) {
+        const style = logoVars(p.hue, theme);
+        return (
+            <button
+                className="card"
+                style={style}
+                data-index={(i + 1).toString().padStart(2, "0")}
+                data-statuslabel={STATUS_LABEL[p.status]}
+                onClick={() => onOpen(p.id)}
+            >
+                <div className="card__top">
+                    <span className="card__logo" style={style}>{p.mono}</span>
+                    <div className="card__heads">
+                        <h3 className="card__name">{p.name}</h3>
+                    </div>
+                    <Status s={p.status} />
+                </div>
+                <p className="card__short">{p.short}</p>
+                <div className="card__foot">
+                    <Chips stack={p.stack} max={4} />
+                    <span className="card__arrow"><Icon.arrow /></span>
+                </div>
+            </button>
+        );
+    }
+
+    /* ---------------- Detail screen ---------------- */
+    function Detail({ p, theme, onBack }) {
+        const style = logoVars(p.hue, theme);
+        return (
+            <main className="detail wrap rise" style={style}>
+                <a className="back" href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>
+                    <Icon.arrowLeft /> All projects
                 </a>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Main Content Container -->
-    <main id="app-root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <!-- JS will render content here -->
-        <div class="flex justify-center items-center h-64">
-            <div class="animate-pulse text-gray-400">Loading projects...</div>
-        </div>
-    </main>
+                <div className="dhead">
+                    <span className="dhead__logo" style={style}>{p.mono}</span>
+                    <div className="dhead__main">
+                        <div className="dhead__row">
+                            <h1 className="dtitle">{p.name}</h1>
+                            <Status s={p.status} />
+                        </div>
+                        <p className="dhead__short">{p.short}</p>
+                    </div>
+                </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-200 py-8 mt-12 text-center text-sm text-gray-500 bg-white">
-        <p>&copy; 2026 Nitish Srivastava</p>
-    </footer>
+                <div className="dactions">
+                    <a className="btn btn--primary" href={p.link} target="_blank" rel="noopener noreferrer">
+                        <Icon.external /> Visit live site
+                    </a>
+                    <a className="btn" href={`https://github.com/${p.repo}`} target="_blank" rel="noopener noreferrer">
+                        <Icon.repo /> {p.repo}
+                        <span className="stars"><Icon.star style={{ width: 13, height: 13, marginRight: 4, verticalAlign: "-1px" }} />{p.stars}</span>
+                    </a>
+                </div>
 
-    <!-- App Logic -->
-    <script src="data/projects.js"></script>
-    <script src="app.js"></script>
+                <div className="dgrid">
+                    <div>
+                        <section className="section">
+                            <h2 className="section__label">Overview</h2>
+                            <p className="prose">{p.detail}</p>
+                        </section>
+
+                        <section className="section">
+                            <h2 className="section__label">Key features</h2>
+                            <ul className="features">
+                                {p.features.map((f) => <li key={f}>{f}</li>)}
+                            </ul>
+                        </section>
+
+                        <section className="section">
+                            <h2 className="section__label">How it works</h2>
+                            <p className="prose">{p.architecture}</p>
+                        </section>
+
+                        <section className="section">
+                            <h2 className="section__label">Screens</h2>
+                            <div className="shots">
+                                {p.shots.map((s, idx) => (
+                                    <Shot key={s} label={s} hue={p.hue} theme={theme}
+                                          wide={p.shots.length % 2 === 1 && idx === p.shots.length - 1} />
+                                ))}
+                            </div>
+                        </section>
+                    </div>
+
+                    <aside className="meta">
+                        <div className="meta__block">
+                            <h3 className="meta__h">Tech stack</h3>
+                            <div className="meta__stack">
+                                {p.stack.map((t) => <span key={t} className="chip">{t}</span>)}
+                            </div>
+                        </div>
+                        <div className="meta__block">
+                            <h3 className="meta__h">Details</h3>
+                            <div className="meta__row"><span className="k">Status</span><span className="v">{STATUS_LABEL[p.status]}</span></div>
+                            <div className="meta__row"><span className="k">Stars</span><span className="v">★ {p.stars}</span></div>
+                            <div className="meta__row"><span className="k">Stack</span><span className="v">{p.stack.length} tools</span></div>
+                        </div>
+                        <div className="meta__block">
+                            <h3 className="meta__h">Links</h3>
+                            <div style={{ display: "grid", gap: 12 }}>
+                                <a className="meta__link" href={p.link} target="_blank" rel="noopener noreferrer"><Icon.external /> {p.link.replace(/^https?:\/\//, "")}</a>
+                                <a className="meta__link" href={`https://github.com/${p.repo}`} target="_blank" rel="noopener noreferrer"><Icon.repo /> github.com/{p.repo}</a>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </main>
+        );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
 </body>
 </html>
