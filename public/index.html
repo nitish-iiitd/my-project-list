@@ -491,96 +491,177 @@
     // Project data for Nitish Srivastava's showcase.
     window.PROJECTS = [
         {
-            id: "doxie",
-            name: "Doxie",
-            mono: "D",
-            hue: 210,
-            status: "live",
-            short: "Google Drive–backed document management for families.",
-            stack: ["React", "TypeScript", "Node.js", "Google Drive API", "OAuth 2.0", "Tailwind"],
-            link: "https://usedoxie.app",
-            repo: "nitish-iiitd/Doxie",
-            stars: 184,
-            detail:
-                "Doxie is a personal document manager that keeps every important family record — IDs, insurance, bills, certificates — organized on top of your own Google Drive, so you stay in full control of your data. It introduces shared \u201cDoxie workspaces\u201d where family members access a common Drive folder with viewer or editor permissions, making it effortless to keep everyone on the same page without a separate storage silo.",
-            architecture:
-                "A React + TypeScript front end talks to a thin Node.js service that brokers Google Drive access via OAuth 2.0. Documents never leave the user's Drive — Doxie stores only metadata, tags, and workspace membership in Postgres. Permission changes propagate through Drive's native sharing API, so the source of truth is always the user's own account.",
-            features: [
-                "Shared workspaces with viewer / editor roles backed by Drive permissions",
-                "Smart tagging and full-text search across document metadata",
-                "Expiry reminders for time-sensitive documents (passports, policies)",
-                "Zero-storage model — your files stay in your own Drive"
+            "id": "doxie",
+            "name": "Doxie",
+            "mono": "D",
+            "hue": 210,
+            "status": "live",
+            "short": "A serverless, Google Drive–backed document manager for families.",
+            "stack": [
+                "Vanilla JavaScript",
+                "HTML/CSS",
+                "Bootstrap 5",
+                "Google Drive API",
+                "Google Identity Services (OAuth 2.0)"
             ],
-            shots: ["Workspace dashboard", "Document detail + tags", "Share & permissions"]
+            "link": "https://usedoxie.app",
+            "repo": "nitish-iiitd/Doxie",
+            "stars": 0,
+            "detail": "Doxie is a privacy-first personal document manager that keeps every important family record — IDs, medical records, legal documents — organized natively inside your own Google Drive. It introduces shared 'Doxie workspaces' where family members can securely link and view the family's documents without needing a separate storage silo or exposing their entire Google Drive.",
+            "architecture": "Doxie is a completely serverless, client-side Single Page Application (SPA). It uses Google Identity Services for OAuth 2.0 and communicates directly with the Google Drive REST API from the browser. There is no backend database; all structural data (members, categories) is mapped directly to Google Drive folders, ensuring the user retains absolute control and ownership of their data at all times.",
+            "features": [
+                "Zero backend architecture — your files and metadata stay entirely in your own Drive",
+                "Privacy-first 'drive.file' scope ensuring the app can only see files it creates",
+                "Family sharing via native Drive permissions with a secure 'Guest Mode' (read-only)",
+                "Automated folder organization by family member and category (Educational, Medical, Legal, etc.)",
+                "Direct-to-Drive file uploads and downloads from the browser"
+            ],
+            "shots": [
+                "Landing page & OAuth onboarding",
+                "Member dashboard & category view",
+                "Family sharing & Guest Mode UI"
+            ]
         },
         {
-            id: "dockyard",
-            name: "Dockyard",
-            mono: "Dk",
-            hue: 270,
-            status: "wip",
-            short: "A lightweight, experimental agentic framework for personal AI.",
-            stack: ["Python", "FastAPI", "LangGraph", "Pydantic", "MCP", "Redis"],
-            link: "https://dockyard.projects.nitishsrivastava.dev",
-            repo: "nitish-iiitd/dockyard",
-            stars: 412,
-            detail:
-                "Dockyard is personal AI infrastructure: a small, composable framework for building and orchestrating agents. It provides an agent registry, a tool registry, an LLM abstraction layer, request routing, agent-to-agent handoff, native MCP integration, and clean APIs to power your own AI tools — without the weight of a full platform.",
-            architecture:
-                "At the core is a router that resolves an incoming task to one or more registered agents. Agents declare their tools and capabilities in a registry; an LLM abstraction layer lets you swap providers without touching agent code. Handoff is modeled as a typed message passed between agents, and MCP servers are mounted as first-class tool sources. FastAPI exposes everything over HTTP; Redis handles transient state and queues.",
-            features: [
-                "Pluggable agent & tool registries with typed schemas",
-                "Provider-agnostic LLM abstraction (swap models in one line)",
-                "Agent-to-agent handoff with structured message passing",
-                "Native Model Context Protocol (MCP) integration"
+            "id": "dockyard",
+            "name": "Dockyard",
+            "mono": "Dk",
+            "hue": 270,
+            "status": "wip",
+            "short": "An AI-native workflow platform for integrating AI-powered business capabilities.",
+            "stack": ["Python", "FastAPI", "LangGraph", "MCP", "Langfuse", "Ollama"],
+            "link": "https://dockyard.projects.nitishsrivastava.dev",
+            "repo": "nitish-iiitd/dockyard",
+            "stars": 0,
+            "detail": "Dockyard is a platform for building AI-powered business workflows in a structured, scalable, and maintainable way. Rather than embedding ad-hoc LLM calls in backend services, Dockyard acts as a central capability layer. It seamlessly orchestrates deterministic logic, AI tasks, single agents, and multi-agent teams, allowing client systems to trigger complex AI workflows via clean APIs.",
+            "architecture": "The platform's architecture cleanly separates orchestration from execution. A Router receives API requests and dispatches them to business-level Handlers. These Handlers launch Workflows that define an execution plan containing Deterministic Steps, AI Tasks, Agents, and LangGraph-powered Agent Teams. External systems and tools are integrated natively via Model Context Protocol (MCP) servers.",
+            "features": [
+                "Structured AI workflow orchestration layer",
+                "Multi-agent team coordination using LangGraph",
+                "Native Model Context Protocol (MCP) integration",
+                "Comprehensive observability, rate limiting, and token budget enforcement"
             ],
-            shots: ["Agent registry view", "Routing trace", "MCP tool catalog"]
+            "shots": ["Workflow execution trace", "Agent team handoff", "MCP plugin configuration"]
         },
         {
             id: "shelftrack",
             name: "ShelfTrack",
-            mono: "S",
-            hue: 150,
+            mono: "📦",
+            hue: 240, // Changed to a blue/indigo hue to match your primary theme color (#4f46e5)
             status: "live",
-            short: "A mobile-first inventory tracker for everyday products.",
-            stack: ["Flutter", "Dart", "SQLite", "Riverpod"],
+            short: "A completely private, offline-first Progressive Web App for tracking everyday inventory.",
+            stack: ["Vanilla JS", "HTML/CSS", "Bootstrap 5", "IndexedDB", "PWA"],
             link: "https://shelftrack.projects.nitishsrivastava.dev",
             repo: "nitish-iiitd/shelftrack",
-            stars: 96,
+            stars: 0, // Update this if your repo has stars!
             detail:
-                "ShelfTrack helps you keep tabs on the everyday things you run out of — makeup, household supplies, pantry consumables. Organize products by category and sub-category, flag items as in-use or finished, and see finished-vs-total counts at a glance so you always know what to restock before you run dry.",
+                "ShelfTrack helps you keep tabs on the everyday things you run out of — makeup, household supplies, pantry consumables. Organize products by category and sub-category, quickly toggle items between 'In Use' and 'Finished', and see finished-vs-total counts at a glance so you always know what to restock before you run dry. Everything is stored 100% locally on your device.",
             architecture:
-                "A Flutter app with a local-first SQLite store, so it works fully offline. State is managed with Riverpod, keeping the UI reactive to inventory changes. Categories and sub-categories form a simple tree; status transitions (in_use \u2192 finished) are append-only events, which makes the finished/total analytics cheap to compute.",
+                "A Progressive Web App (PWA) built entirely with Vanilla JavaScript and HTML5. It leverages the browser's native IndexedDB for a robust, local-first data store, allowing it to function completely offline. State is managed via a lightweight, snapshot-based DOM rendering engine, while Bootstrap 5 handles the highly dense, mobile-optimized responsive UI.",
             features: [
-                "Category & sub-category organization with quick filters",
-                "in_use vs finished status tracking per product",
-                "Finished / total counts and restock insights",
-                "Fully offline, local-first storage"
+                "Installable PWA with full offline capabilities",
+                "Three-tier organization (Category \u2192 Sub-category \u2192 Product)",
+                "One-tap 'In Use' vs 'Finished' status tracking",
+                "Local JSON import/export and snapshot backups",
+                "Instant search with auto-expanding category matching"
             ],
-            shots: ["Category grid", "Product detail", "Restock summary"]
+            shots: ["Mobile dashboard view", "Empty state & search", "Documentation & Backup flows"]
         },
         {
-            id: "list-me-out",
-            name: "List-Me-Out",
-            mono: "L",
-            hue: 35,
-            status: "live",
-            short: "A minimal, paper-like todo app for quick daily productivity.",
-            stack: ["React", "Vite", "LocalStorage", "CSS"],
-            link: "https://list-me-out.projects.nitishsrivastava.dev",
-            repo: "nitish-iiitd/list-me-out",
-            stars: 58,
-            detail:
-                "List-Me-Out is a deliberately tiny todo app for lightweight daily use. No accounts, no sync, no clutter — just a clean, paper-like surface where active and completed items live in separate, calm sections. Everything persists in local storage so your list is right where you left it.",
-            architecture:
-                "A single-page React app built with Vite. There is no backend at all — state lives in React and is mirrored to LocalStorage on every change, then rehydrated on load. The UI leans on a paper metaphor with subtle texture and generous spacing to keep the experience focused and quiet.",
-            features: [
+            "id": "list-me-out",
+            "name": "List-Me-Out",
+            "mono": "L",
+            "hue": 35,
+            "status": "live",
+            "short": "A minimal, paper-like todo app for quick daily productivity.",
+            "stack": [
+                "JavaScript",
+                "HTML",
+                "CSS",
+                "LocalStorage"
+            ],
+            "link": "https://list-me-out.projects.nitishsrivastava.dev",
+            "repo": "nitish-iiitd/list-me-out",
+            "stars": 0,
+            "detail": "List-Me-Out is a deliberately tiny todo app for lightweight daily use. No accounts, no sync, no clutter — just a clean, paper-like surface where active and completed items live in separate, calm sections. Everything persists in local storage so your list is right where you left it.",
+            "architecture": "A single-page application built entirely with vanilla JavaScript, HTML, and CSS. There is no build step or backend — the core application is contained within a single HTML file. State is managed via direct DOM manipulation and is mirrored to LocalStorage on every change, then rehydrated on load. The UI relies on a CSS-driven paper metaphor with subtle repeating gradients for lines and automatic CSS counter numbering.",
+            "features": [
                 "Active and completed items in distinct sections",
                 "Instant local persistence — no account required",
                 "Calm, paper-like interface with zero chrome",
-                "Keyboard-first quick entry"
+                "CSS-driven automatic numbering for active tasks",
+                "Ability to export lists to JSON and clear completed items"
             ],
-            shots: ["Active list", "Completed view"]
+            "shots": [
+                "Active list",
+                "Completed view"
+            ]
+        },
+        {
+            "id": "dumbcharades",
+            "name": "Dumb Charades",
+            "mono": "🎬",
+            "hue": 210, // Bootstrap blue hue to match the primary buttons, or you can use 140 for the green 'Start' button
+            "status": "live",
+            "short": "The classic Bollywood party game — act out the movie title without speaking and let your friends guess!",
+            "stack": ["Vanilla JS", "HTML/CSS", "Bootstrap 5"],
+            "link": "https://dumbcharades.projects.nitishsrivastava.dev",
+            "repo": "nitish-iiitd/DumbCharadesWebsite",
+            "stars": 0,
+            "detail": "Dumb Charades is a purely client-side movie picker designed for the classic party game. It loads a massive list of Bollywood movie titles and serves them randomly, guaranteeing no repeats until the entire list is exhausted. It stores the shuffled order, current progress, and random seed locally using localStorage, so you can accidentally close the tab and seamlessly resume exactly where you left off.",
+            "architecture": "A lightweight front-end web application built with Vanilla JS and styled using Bootstrap 5. It features a custom Mulberry32 seeded random number generator and a Fisher-Yates shuffle algorithm for fair randomization. State persistence is handled entirely via localStorage, and it employs a djb2 hashing mechanism to automatically reset the game state if the underlying `movies.txt` file is updated.",
+            "features": [
+                "Deterministic random shuffling with Mulberry32",
+                "Persistent round state via localStorage",
+                "No-repeat guarantee until list is exhausted",
+                "Hash-based cache invalidation for movie list updates",
+                "One-click title copying and round resets"
+            ],
+            "shots": ["Intro screen", "Game screen", "Reshuffled round toast"]
+        },
+        {
+            "id": "meal-mitra",
+            "name": "Meal Mitra",
+            "mono": "🍱",
+            "hue": 25,
+            "status": "live",
+            "short": "A family kitchen meal planner that suggests what to cook based on everyone's preferences and past history.",
+            "stack": ["Vanilla JS", "HTML/CSS", "Bootstrap 5", "jQuery"],
+            "link": "https://meal-mitra.projects.nitishsrivastava.dev",
+            "repo": "nitish-iiitd/meal-mitra",
+            "stars": 0,
+            "detail": "Meal Mitra is a purely client-side family kitchen planner. It uses a custom suggestion engine to rank and recommend meals based on individual family member preferences (who loves or avoids what), recency (avoiding dishes cooked recently), and filtering options like effort or tags. It stores the family roster, meal catalogs, and cooking history entirely in `localStorage`, meaning it works completely offline and persists data seamlessly between sessions.",
+            "architecture": "A lightweight front-end web application built with Vanilla JS, jQuery for event delegation, and styled using Bootstrap 5 alongside custom CSS. It features a scoring-based suggestion engine that evaluates meals by aggregating individual member preferences, applying recency penalties, and matching main dishes with appropriate staples and sides. State persistence and schema migrations are handled natively via `localStorage`, and it includes a JSON export/import mechanism for data backups.",
+            "features": [
+                "Smart meal suggestion engine based on preferences and recency",
+                "Per-member preference tracking (love, okay, avoid, cannot eat)",
+                "Persistent state and cooking history via localStorage",
+                "Meal component grouping (mains, staples, and sides)",
+                "JSON data export and import for easy backups"
+            ],
+            "shots": ["Home dashboard", "Meal suggestion results", "Family preferences grid"]
+        },
+        {
+            "id": "mcp-explained",
+            "name": "MCP Explained",
+            "mono": "🔌",
+            "hue": 240,
+            "status": "live",
+            "short": "The Easy Guide to Model Context Protocol. Understand how AI assistants connect to tools, data, and APIs — and what changes in the new 2026-07-28 MCP standard.",
+            "stack": ["Vanilla JS", "HTML/CSS", "Bootstrap 5", "jQuery"],
+            "link": "https://mcp-explained.projects.nitishsrivastava.dev",
+            "repo": "nitish-iiitd/mcp-explained",
+            "stars": 0,
+            "detail": "MCP Explained is a comprehensive, single-page educational guide detailing the Model Context Protocol (MCP). It specifically breaks down the new stateless architecture introduced in the 2026-07-28 release candidate. The site provides clear explanations of MCP's core building blocks (Hosts, Clients, Servers, Tools, Resources, Prompts) and helps developers transition from older, session-based implementations to the new standard.",
+            "architecture": "A lightweight, static front-end web page built with semantic HTML and styled using Bootstrap 5 alongside custom CSS variables. It utilizes jQuery for straightforward interactive elements like one-click code copying, toggling wire format comparisons (old vs. new requests), and a real-time, client-side searchable glossary. The layout employs a sticky navigation bar with Bootstrap's scrollspy plugin to smoothly track the user's reading progress.",
+            "features": [
+                "Interactive old vs. new MCP request comparison",
+                "Real-time client-side glossary search",
+                "One-click code snippet copying",
+                "Migration checklist with progress tracker",
+                "Responsive, scroll-spy enabled navigation"
+            ],
+            "shots": ["Hero and problem statement", "Wire format comparison", "Interactive glossary"]
         }
     ];
 
