@@ -662,6 +662,32 @@
                 "Responsive, scroll-spy enabled navigation"
             ],
             "shots": ["Hero and problem statement", "Wire format comparison", "Interactive glossary"]
+        },
+        {
+            "id": "personajs",
+            "name": "PersonaJS",
+            "mono": "📄",
+            "hue": 200,
+            "status": "live",
+            "short": "A lightweight JavaScript library to dynamically generate a beautiful personal portfolio or printable résumé from a simple JSON object.",
+            "stack": ["Vanilla JS", "HTML/CSS", "Bootstrap 5", "Mustache.js"],
+            "link": "https://nitish-iiitd.github.io/PersonaJS/tester.html",
+            "repo": "nitish-iiitd/PersonaJS",
+            "stars": 0,
+            "detail": "PersonaJS is a client-side JavaScript library that takes user data (such as experience, projects, skills, education, and achievements) and dynamically renders a complete personal portfolio. It supports two presentation modes out of the box: a printable two-column résumé ('paper' mode) and an immersive scrolling portfolio website ('web' mode). By utilizing Mustache.js for templating, it separates data from presentation, making it extremely easy for developers to customize and deploy their personal websites.",
+            "architecture": "A frontend-only library that asynchronously fetches modular HTML templates and populates them using Mustache.js. The styling is handled via custom CSS (`persona.css`) and Bootstrap 5. It implements an internal asynchronous queue to sequence the rendering of templates, ensuring sections always appear in the correct order. The library also features runtime theme switching, enabling a seamless transition between a static document layout and an interactive, scroll-spy-enabled single-page layout powered by the IntersectionObserver API.",
+            "features": [
+                "Dynamic template rendering using Mustache.js",
+                "Two presentation modes: Printable Résumé and Web Portfolio",
+                "Asynchronous component queueing and ordered rendering",
+                "Scroll-reveal animations and scroll-spy navigation in web mode",
+                "Responsive, mobile-first design powered by Bootstrap 5"
+            ],
+            "shots": [
+                "Immersive web mode portfolio layout",
+                "Two-column paper mode résumé layout",
+                "Interactive theme switching"
+            ]
         }
     ];
 
