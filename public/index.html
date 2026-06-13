@@ -530,7 +530,7 @@
             "status": "wip",
             "short": "An AI-native workflow platform for integrating AI-powered business capabilities.",
             "stack": ["Python", "FastAPI", "LangGraph", "MCP", "Langfuse", "Ollama"],
-            "link": "https://dockyard.projects.nitishsrivastava.dev",
+            "link": "https://nitish-iiitd.github.io/dockyard/",
             "repo": "nitish-iiitd/dockyard",
             "stars": 0,
             "detail": "Dockyard is a platform for building AI-powered business workflows in a structured, scalable, and maintainable way. Rather than embedding ad-hoc LLM calls in backend services, Dockyard acts as a central capability layer. It seamlessly orchestrates deterministic logic, AI tasks, single agents, and multi-agent teams, allowing client systems to trigger complex AI workflows via clean APIs.",
@@ -542,6 +542,50 @@
                 "Comprehensive observability, rate limiting, and token budget enforcement"
             ],
             "shots": ["Workflow execution trace", "Agent team handoff", "MCP plugin configuration"]
+        },
+        {
+            "id": "meal-mitra",
+            "name": "Meal Mitra",
+            "mono": "🍱",
+            "hue": 25,
+            "status": "live",
+            "short": "A family kitchen meal planner that suggests what to cook based on everyone's preferences and past history.",
+            "stack": ["Vanilla JS", "HTML/CSS", "Bootstrap 5", "jQuery"],
+            "link": "https://meal-mitra.projects.nitishsrivastava.dev",
+            "repo": "nitish-iiitd/meal-mitra",
+            "stars": 0,
+            "detail": "Meal Mitra is a purely client-side family kitchen planner. It uses a custom suggestion engine to rank and recommend meals based on individual family member preferences (who loves or avoids what), recency (avoiding dishes cooked recently), and filtering options like effort or tags. It stores the family roster, meal catalogs, and cooking history entirely in `localStorage`, meaning it works completely offline and persists data seamlessly between sessions.",
+            "architecture": "A lightweight front-end web application built with Vanilla JS, jQuery for event delegation, and styled using Bootstrap 5 alongside custom CSS. It features a scoring-based suggestion engine that evaluates meals by aggregating individual member preferences, applying recency penalties, and matching main dishes with appropriate staples and sides. State persistence and schema migrations are handled natively via `localStorage`, and it includes a JSON export/import mechanism for data backups.",
+            "features": [
+                "Smart meal suggestion engine based on preferences and recency",
+                "Per-member preference tracking (love, okay, avoid, cannot eat)",
+                "Persistent state and cooking history via localStorage",
+                "Meal component grouping (mains, staples, and sides)",
+                "JSON data export and import for easy backups"
+            ],
+            "shots": ["Home dashboard", "Meal suggestion results", "Family preferences grid"]
+        },
+        {
+            "id": "mcp-explained",
+            "name": "MCP Explained",
+            "mono": "🔌",
+            "hue": 240,
+            "status": "live",
+            "short": "The Easy Guide to Model Context Protocol. Understand how AI assistants connect to tools, data, and APIs — and what changes in the new 2026-07-28 MCP standard.",
+            "stack": ["Vanilla JS", "HTML/CSS", "Bootstrap 5", "jQuery"],
+            "link": "https://mcp-explained.projects.nitishsrivastava.dev",
+            "repo": "nitish-iiitd/mcp-explained",
+            "stars": 0,
+            "detail": "MCP Explained is a comprehensive, single-page educational guide detailing the Model Context Protocol (MCP). It specifically breaks down the new stateless architecture introduced in the 2026-07-28 release candidate. The site provides clear explanations of MCP's core building blocks (Hosts, Clients, Servers, Tools, Resources, Prompts) and helps developers transition from older, session-based implementations to the new standard.",
+            "architecture": "A lightweight, static front-end web page built with semantic HTML and styled using Bootstrap 5 alongside custom CSS variables. It utilizes jQuery for straightforward interactive elements like one-click code copying, toggling wire format comparisons (old vs. new requests), and a real-time, client-side searchable glossary. The layout employs a sticky navigation bar with Bootstrap's scrollspy plugin to smoothly track the user's reading progress.",
+            "features": [
+                "Interactive old vs. new MCP request comparison",
+                "Real-time client-side glossary search",
+                "One-click code snippet copying",
+                "Migration checklist with progress tracker",
+                "Responsive, scroll-spy enabled navigation"
+            ],
+            "shots": ["Hero and problem statement", "Wire format comparison", "Interactive glossary"]
         },
         {
             id: "shelftrack",
@@ -618,50 +662,6 @@
                 "One-click title copying and round resets"
             ],
             "shots": ["Intro screen", "Game screen", "Reshuffled round toast"]
-        },
-        {
-            "id": "meal-mitra",
-            "name": "Meal Mitra",
-            "mono": "🍱",
-            "hue": 25,
-            "status": "live",
-            "short": "A family kitchen meal planner that suggests what to cook based on everyone's preferences and past history.",
-            "stack": ["Vanilla JS", "HTML/CSS", "Bootstrap 5", "jQuery"],
-            "link": "https://meal-mitra.projects.nitishsrivastava.dev",
-            "repo": "nitish-iiitd/meal-mitra",
-            "stars": 0,
-            "detail": "Meal Mitra is a purely client-side family kitchen planner. It uses a custom suggestion engine to rank and recommend meals based on individual family member preferences (who loves or avoids what), recency (avoiding dishes cooked recently), and filtering options like effort or tags. It stores the family roster, meal catalogs, and cooking history entirely in `localStorage`, meaning it works completely offline and persists data seamlessly between sessions.",
-            "architecture": "A lightweight front-end web application built with Vanilla JS, jQuery for event delegation, and styled using Bootstrap 5 alongside custom CSS. It features a scoring-based suggestion engine that evaluates meals by aggregating individual member preferences, applying recency penalties, and matching main dishes with appropriate staples and sides. State persistence and schema migrations are handled natively via `localStorage`, and it includes a JSON export/import mechanism for data backups.",
-            "features": [
-                "Smart meal suggestion engine based on preferences and recency",
-                "Per-member preference tracking (love, okay, avoid, cannot eat)",
-                "Persistent state and cooking history via localStorage",
-                "Meal component grouping (mains, staples, and sides)",
-                "JSON data export and import for easy backups"
-            ],
-            "shots": ["Home dashboard", "Meal suggestion results", "Family preferences grid"]
-        },
-        {
-            "id": "mcp-explained",
-            "name": "MCP Explained",
-            "mono": "🔌",
-            "hue": 240,
-            "status": "live",
-            "short": "The Easy Guide to Model Context Protocol. Understand how AI assistants connect to tools, data, and APIs — and what changes in the new 2026-07-28 MCP standard.",
-            "stack": ["Vanilla JS", "HTML/CSS", "Bootstrap 5", "jQuery"],
-            "link": "https://mcp-explained.projects.nitishsrivastava.dev",
-            "repo": "nitish-iiitd/mcp-explained",
-            "stars": 0,
-            "detail": "MCP Explained is a comprehensive, single-page educational guide detailing the Model Context Protocol (MCP). It specifically breaks down the new stateless architecture introduced in the 2026-07-28 release candidate. The site provides clear explanations of MCP's core building blocks (Hosts, Clients, Servers, Tools, Resources, Prompts) and helps developers transition from older, session-based implementations to the new standard.",
-            "architecture": "A lightweight, static front-end web page built with semantic HTML and styled using Bootstrap 5 alongside custom CSS variables. It utilizes jQuery for straightforward interactive elements like one-click code copying, toggling wire format comparisons (old vs. new requests), and a real-time, client-side searchable glossary. The layout employs a sticky navigation bar with Bootstrap's scrollspy plugin to smoothly track the user's reading progress.",
-            "features": [
-                "Interactive old vs. new MCP request comparison",
-                "Real-time client-side glossary search",
-                "One-click code snippet copying",
-                "Migration checklist with progress tracker",
-                "Responsive, scroll-spy enabled navigation"
-            ],
-            "shots": ["Hero and problem statement", "Wire format comparison", "Interactive glossary"]
         },
         {
             "id": "personajs",
