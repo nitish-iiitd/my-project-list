@@ -491,6 +491,34 @@
     // Project data for Nitish Srivastava's showcase.
     window.PROJECTS = [
         {
+            "id": "wanderist",
+            "name": "Wanderist",
+            "mono": "W",
+            "hue": 230,
+            "status": "live",
+            "short": "A warm, personal place diary for travel and food memories — save places you want to visit, log the ones you've loved with ratings and notes, and rediscover everything by city, type and tags.",
+            "stack": ["FastAPI", "PostgreSQL", "SQLAlchemy + Alembic", "Vanilla JS", "JWT Auth", "Podman Compose"],
+            "link": "https://wanderist.projects.nitishsrivastava.dev",
+            "repo": "nitish-iiitd/triply",
+            "stars": 0,
+            "detail": "Wanderist is a full-stack personal place diary — part trip planner, part memory wall — for cafés, restaurants, forts, coffee estates and hidden gems. Users save wishlist spots with notes, priority, tags and budget, then mark them visited with multi-dimensional ratings (overall, food, ambience, value), a review and a 'would visit again' flag. Everything is organised through dashboard stats, All/Wishlist/Visited tabs, type filters, search across name/city/tags/cuisine, sorting, and a 'top memories' highlight. The whole list can be exported to CSV and re-imported in either Copy (append) or Replace (overwrite, with an automatic backup download first) mode. The UI is a deliberately notebook-like, editorial design rather than a corporate dashboard.",
+            "architecture": "A layered FastAPI backend (API routes → services → repositories → SQLAlchemy models) backed by PostgreSQL with Alembic migrations and a per-request, dependency-injected session. Authentication is stateless JWT issued as an HttpOnly cookie, validated through a shared dependency. The frontend is a dependency-free vanilla-JavaScript single-page app served by nginx that renders the entire UI from template literals and talks to the API over JSON with cookie-based sessions; it performs client-side filtering/sorting/search and uses targeted in-place DOM updates (rather than full re-renders) for smooth modal interactions, plus matchMedia for the desktop-sidebar ↔ mobile-bottom-nav switch. The three services (PostgreSQL, backend, frontend) are orchestrated with Podman Compose, with migrations and seed data running automatically on backend startup.",
+            "features": [
+                "Wishlist + visited places with multi-dimensional ratings, reviews and 'would visit again'",
+                "Search, type filters, sorting, All/Wishlist/Visited tabs and a 'top memories' section",
+                "CSV export and import with Copy (append) or Replace (backup-then-overwrite) modes",
+                "Cookie-based JWT authentication with register / login / logout",
+                "Responsive layout: desktop sidebar and mobile bottom navigation, plus compact-view and show-ratings preferences"
+            ],
+                "shots": [
+                "Dashboard with quick stats and place cards",
+                "Add / edit place modal with collapsible Advanced Information",
+                "Place detail view with rating bars and visit review",
+                "Mobile layout with bottom navigation",
+                "Download / upload your list (CSV) from Profile settings"
+            ]
+        },
+        {
             "id": "doxie",
             "name": "Doxie",
             "mono": "D",
